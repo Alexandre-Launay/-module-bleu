@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
+use Mews\Purifier\Facades\Purifier;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Client\ArticleRequest;
-use App\Models\Category;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Redirect;
+
 
 class ArticleController extends Controller
 {
@@ -28,7 +28,7 @@ class ArticleController extends Controller
      *  Display the form for creating a new resource.
      */
     public function create(): View
-    {
+    {   
         Gate::authorize('create', Article::class);
         $categories = Category::where('deleted_at', null)->get();
         return view('client.articles.create', compact('categories'));
@@ -42,6 +42,7 @@ class ArticleController extends Controller
         Gate::authorize('create', Article::class);
         $validatedData = $articleRequest->validated();
         $validatedData['user_id'] = $request->user()->id;
+        $validatedData['content'] = Purifier::clean($validatedData['content']);
         $article = Article::create($validatedData);
         return redirect()->route('client.articles.show', $article)->with('success', 'Article créé avec succès.');
     }

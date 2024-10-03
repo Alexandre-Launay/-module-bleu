@@ -16,7 +16,7 @@
                         
                         <!-- Contenu de l'article -->
                         <div class="card-text">
-                            {{$article->content}}
+                            {!! $article->content !!}
                         </div>
     
                         <!-- Boutons d'action en bas de l'article -->
