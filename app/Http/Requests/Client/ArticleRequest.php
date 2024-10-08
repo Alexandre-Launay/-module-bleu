@@ -24,7 +24,7 @@ class ArticleRequest extends FormRequest
         return [
             'title' => 'required|string',
             'content' => 'required',
-            'image_path' => 'string|nullable',
+            'image' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             'category_id' => 'integer|exists:categories,id'
         ];
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Mews\Purifier\Facades\Purifier;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Client\CommentRequest;
@@ -19,9 +20,9 @@ class CommentController extends Controller
     {
         Gate::authorize('store', Comment::class);
         $validatedData = $commentRequest->validated();
-        $validatedData['user_id'] = $request->user()->id;
+        $validatedData['user_id'] = $request->user()->id;        
         $comment = Comment::create($validatedData);
-        return redirect()->route('client.articles.show', $request->article->id)->with('success', 'commentaire ajouté avec succès.');
+        return redirect()->route('client.articles.show', $comment->article->id)->with('success', 'commentaire ajouté avec succès.');
     }
 
     /**
@@ -32,7 +33,7 @@ class CommentController extends Controller
         Gate::authorize('update', $comment);
         $validatedData = $commentRequest->validated();
         $comment->update($validatedData);
-        return redirect()->route('client.articles.show', $comment->article->id)->with('success', 'commentaire mis à jour avec succès.');
+        return redirect()->route('client.articles.show', $comment->article->id )->with('success', 'commentaire mis à jour avec succès.');
     }
 
     /**
