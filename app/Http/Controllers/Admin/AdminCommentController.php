@@ -14,7 +14,7 @@ class AdminCommentController extends Controller
     public function indexWithoutTrashed()
     {
         Gate::authorize('viewWithoutTrashed', Comment::class);
-        $comments = Comment::all();
+        $comments = Comment::withTrashed()->with('article')->get();
         return view('admin.comments.index', compact('comments'));
     }
 

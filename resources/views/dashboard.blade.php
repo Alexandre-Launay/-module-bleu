@@ -1,12 +1,10 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2>
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
-    <div>
-        <x-card/>
-    </div>
+    <div> Des counts</div>
 
-</x-app-layout>
+</x-admin-layout>

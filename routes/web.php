@@ -27,7 +27,11 @@ Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->nam
 /**
  * Routes to access client comments as authenticated user
  */
-Route::resource('/comments', CommentController::class)->only(['store', 'update', 'destroy']);
+Route::prefix('/comments')->name('client.comments.')->group(function () {
+    Route::put('/{comment}', [CommentController::class, 'update'])->name('update');
+    Route::post('/', [CommentController::class, 'store'])->name('store');
+    Route::delete('/{comment}', [CommentController::class, 'destroy'])->name('destroy');
+});
 
 /**
  * Route to access the admin dashboard
@@ -39,8 +43,13 @@ Route::get('/admin', function () {
 /**
  * Routes to access admin categories
  */
-Route::resource('/admin/categories', AdminCategoryController::class)->only(['index', 'store', 'update', 'destroy']);
-Route::get('/admin/categories/', [AdminCategoryController::class, 'index'])->name('admin.categories.index');
+Route::prefix('/admin/categories')->name('admin.categories.')->group(function () {
+    Route::get('/', [AdminCategoryController::class, 'index'])->name('index');
+    Route::post('/', [AdminCategoryController::class, 'store'])->name('store');
+    Route::put('/{category}', [AdminCategoryController::class, 'update'])->name('update');
+    Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
+    Route::patch('/{category}', [AdminCategoryController::class, 'restore'])->name('restore');
+});
 
 /**
  * Routes to access admin articles
@@ -60,7 +69,7 @@ Route::prefix('/admin/articles')->name('admin.articles.')->group(function () {
  */
 Route::prefix('/admin/comments')->name('admin.comments.')->group(function () {
     Route::get('/', [AdminCommentController::class, 'indexWithoutTrashed'])->name('index');
-    Route::get('/trashed', [AdminCommentController::class, 'indexOnlyTrashed'])->name('indexOnlyTrashed');
+    Route::get('/trashed', [AdminCommentController::class, 'indexOnlyTrashed'])->name('trashed');
     Route::delete('{comment}', [AdminCommentController::class, 'destroy'])->name('destroy');
     Route::patch('{comment}', [AdminCommentController::class, 'restore'])->name('restore');
 });
