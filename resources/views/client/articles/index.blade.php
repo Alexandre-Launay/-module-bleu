@@ -6,10 +6,14 @@
         </div>
 
         @foreach ($articles as $article)
-        <div class="card mt-3 shadow-sm" style="width: 100%">
-            <img src="{{asset('storage/'.$article->image_path)}}" class="card-img-top" alt="{{$article->title}}">
+        <div class="card-image-top ">
+            <div class="card-image-top d-flex justify-content-center  bg-black" style="width: 1000px ; height: 200px;">
+                <img src="{{asset('storage/'.$article->image_path)}}"  alt="{{isset($article->image_path)? $article->image_path : ''}}">
+            </div>
             <div class="card-header d-flex align-items-center">
-                <div><h6 class="mb-0">{{ $article->user->name }}</h6></div>
+                <div>
+                    <h6 class="mb-0">{{ $article->user->name }}</h6>
+                </div>
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ $article->title }}</h5>
@@ -24,5 +28,4 @@
         </div>
         @endforeach
     </div>
-
 </x-app-layout>
