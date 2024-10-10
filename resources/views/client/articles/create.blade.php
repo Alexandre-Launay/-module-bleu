@@ -2,7 +2,10 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-8 col-md-10">
-                <h1 class="text-center">AJout l'article</h1>
+                @if ()
+                    
+                @endif
+                <h1 class="text-center">Ajout d'article</h1>
                 <form action="{{ route('client.articles.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                 
@@ -17,7 +20,7 @@
                     </div>
                 
                     <div class="form-group mb-4">
-                        <label class="form-label" for="content">Contenue</label>
+                        <label class="form-label" for="content">Contenu</label>
                         <textarea id="content" name="content"></textarea>
                     </div>
 
@@ -30,8 +33,10 @@
                         </select>
                     </div>
                     <div class="mt-4 d-flex justify-content-end">
+                        @if (Auth::check())
                         <button type="submit" class="btn btn-primary me-3">Create</button>
                         <a href="{{ route('client.articles.index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+                        @endif
                     </div>
                 </form>
             </div>

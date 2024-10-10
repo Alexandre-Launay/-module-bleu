@@ -35,6 +35,7 @@
                                 <td>{{ $article->created_at->format('Y-m-d') }}</td>
                                 <td>{{ isset($article->category)? $article->category->name : '' }}</td>
                                 <td>
+                                    @if(Auth::check() && Auth::user()->role_id === 2)
                                     <form action="{{ route('admin.articles.restore', $article->id) }}" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir restaurer cette catégorie ?');">
                                         @csrf
                                         @method('PATCH')
@@ -44,6 +45,7 @@
                                             </span>
                                         </button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

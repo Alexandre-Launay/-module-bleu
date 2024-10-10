@@ -14,6 +14,7 @@
                         @csrf
                         @method('PUT')
                         <div>
+                            @if(Auth::check() && Auth::user()->role_id === 2)
                             <input type="radio" name="is_visible" id="is_visible_false" value="0" @if($article->is_visible === 1)  checked @endif />
                             <label class="mr-2" for="is_visible_false">Cacher l'article</label>
                             <input type="radio" name="is_visible" id="is_visible_true" value="1" @if($article->is_visible === 0)  checked @endif />
@@ -21,6 +22,7 @@
                         </div>
                         <a href="{{ route('admin.articles.index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
                         <input type="submit" value="{{(!$article->is_visible) ? 'Publier l\'article' : 'Cacher l\'article' }}" class="btn btn-success" />
+                        @endif
                     </form>
                 </div>
             </div>
@@ -54,7 +56,6 @@
                     </div>
                     <!-- Titre de l'article -->
                     <h1 class="card-title mt-2">{{ $article->title }}</h1>
-
                     <!-- Contenu de l'article -->
                     <div class="card-text">
                         {!! $article->content !!}

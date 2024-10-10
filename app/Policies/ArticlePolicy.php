@@ -12,7 +12,7 @@ class ArticlePolicy
      */
     public function viewAny(?User $user): bool
     {
-        return true;
+        return $user !== null;
     }
 
     /**
@@ -32,6 +32,17 @@ class ArticlePolicy
     }
 
     /**
+     * Determine whether the user can edit the model.
+     */
+    public function edit(?User $user, Article $article): bool
+    {
+        if ($user === null) {
+            return false;
+        }
+        return $user->id === $article->user_id;
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(?User $user, Article $article): bool
@@ -39,7 +50,7 @@ class ArticlePolicy
         if ($user === null) {
             return false;
         }
-        return $user->id === $article->user_id || $user->is_admin;
+        return $user->id === $article->user_id || $user->role_id === 2;
     }
 
     /**
@@ -50,7 +61,7 @@ class ArticlePolicy
         if ($user === null) {
             return false;
         }
-        return $user->id === $article->user_id || $user->is_admin;
+        return $user->id === $article->user_id || $user->role_id === 2;
     }
 
     //---------------- ADMIN POLICIES ----------------\\
@@ -63,7 +74,7 @@ class ArticlePolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     public function viewPendingValidation(?User $user): bool
@@ -71,7 +82,7 @@ class ArticlePolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     public function viewOnlyTrashed(?User $user): bool
@@ -79,7 +90,7 @@ class ArticlePolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -90,7 +101,7 @@ class ArticlePolicy
         if ($user === null) {
         return false;
     }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -101,6 +112,6 @@ class ArticlePolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 }

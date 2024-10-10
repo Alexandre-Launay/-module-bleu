@@ -38,6 +38,7 @@
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->created_at }}</td>
                                     <td class="">
+                                        @if(Auth::check() && Auth::user()->role_id === 2)
                                         <div style="{{ $category->deleted_at ? 'display: none' : '' }}">
                                             <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette catégorie ?');">
                                                 @csrf
@@ -60,6 +61,7 @@
                                                 </button>
                                             </form>
                                         </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

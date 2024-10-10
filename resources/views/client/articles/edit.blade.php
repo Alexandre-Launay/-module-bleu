@@ -8,8 +8,10 @@
                     @method('PUT')
                 <!-- Boutons d'action en bas de l'article -->
                 <div class="mt-4 d-flex justify-content-end">
+                    @if (Auth::check())
                     <button type="submit" class="btn btn-primary me-3" >Mettre à jour</button>
                     <a href="{{ route('client.articles.index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+                    @endif
                 </div>
                 <!-- Carte Bootstrap pour l'affichage de l'article -->
                 <div class="card mt-3 border-0 ">

@@ -5,8 +5,10 @@
 
                 <!-- Boutons d'action en bas de l'article -->
                 <div class="mt-4 d-flex justify-content-end">
-                    <a href="{{ route('client.articles.edit', $article)}}" class="btn btn-primary me-3" >Modifier l'article</a>
-                    <a href="{{ route('client.articles.index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+                    @if (Auth::check() && Auth::user()->id == $article->user_id)
+                        <a href="{{ route('client.articles.edit', $article)}}" class="btn btn-primary me-3" >Modifier l'article</a>
+                        <a href="{{ route('client.articles.index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+                    @endif
                 </div>
 
                 <!-- Carte Bootstrap pour l'affichage de l'article -->
@@ -59,7 +61,9 @@
                                     <textarea name="content" id="comment-content" class="form-control" rows="4" placeholder="Ecrivez votre commentaire ici..." required></textarea>
                                 </div>
                                 <div class="d-flex justify-content-end">
+                                    @if (Auth::check())
                                     <button type="submit" class="btn btn-success mt-2 ">Envoyer</button>
+                                    @endif
                                 </div>
                             </form>  
                         {{-- @else
@@ -94,12 +98,14 @@
                                 </div>
 
                                 <div id="comment-cta" class="d-flex justify-content-end mb-4">
+                                    @if (Auth::check() && Auth::user()->id == $comment->user_id)
                                     <button id="btn-update" class="btn btn-primary">Modifier</button>
                                     <form action=" {{route('client.comments.destroy', $comment->id)}} " method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger ms-2">Supprimer</button>
                                     </form>
+                                    @endif
                                 </div>
 
 

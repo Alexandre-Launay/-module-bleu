@@ -38,6 +38,7 @@
                                     <td>{{ $comment->user->name }}</td>
                                     <td>{{ $comment->created_at }}</td>
                                     <td>
+                                        @if(Auth::check() && Auth::user()->role_id === 2)
                                         <form action="{{ route('admin.comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce commentaire ?');">
                                             @csrf
                                             @method('DELETE')
@@ -47,6 +48,7 @@
                                                 </span>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

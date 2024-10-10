@@ -35,6 +35,7 @@
                                 <td>{{ $article->created_at->format('Y-m-d') }}</td>
                                 <td>{{ isset($article->category)? $article->category->name : '' }}</td>
                                 <td class="d-flex justify-content-around">
+                                    @if(Auth::check() && Auth::user()->role_id === 2)
                                         <a href="{{ route('admin.articles.editVisibility', $article) }}" type="submit" class="btn btn-info btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-info-circle"></i>
@@ -49,6 +50,7 @@
                                             </span>
                                         </button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

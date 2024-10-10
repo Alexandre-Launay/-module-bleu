@@ -1,9 +1,11 @@
 <x-app-layout>
     <div class="d-flex flex-column" style="width: 60%">
 
+        @if (Auth::check())
         <div class="d-flex justify-content-end">
             <a href="{{ route('client.articles.create') }}" class="btn btn-primary">Ajouter</a>
         </div>
+        @endif
 
         @foreach ($articles as $article)
         <div class="card-image-top ">

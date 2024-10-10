@@ -16,7 +16,7 @@ class CategoryPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoryPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -49,7 +49,7 @@ class CategoryPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -60,6 +60,6 @@ class CategoryPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 }

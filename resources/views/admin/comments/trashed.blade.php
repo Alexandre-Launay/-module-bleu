@@ -35,6 +35,7 @@
                                     <td>{{ $comment->user->name }}</td>
                                     <td>{{ $comment->created_at }}</td>
                                     <td>
+                                        @if(Auth::check() && Auth::user()->role_id === 2)
                                         <form action="{{ route('admin.comments.restore', $comment->id) }}" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir restaurer ce commentaire ?');">
                                             @csrf
                                             @method('PATCH')
@@ -44,6 +45,7 @@
                                                 </span>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

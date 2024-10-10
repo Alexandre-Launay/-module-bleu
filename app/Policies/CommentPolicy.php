@@ -37,7 +37,7 @@ class CommentPolicy
         if ($user === null) {
             return false;
         }
-        return $user->id === $comment->user_id || $user->is_admin;
+        return $user->id === $comment->user_id || $user->role_id === 2;
     }
 
     //---------------- ADMIN POLICIES ----------------\\
@@ -50,7 +50,7 @@ class CommentPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -61,7 +61,7 @@ class CommentPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 
     /**
@@ -72,6 +72,6 @@ class CommentPolicy
         if ($user === null) {
             return false;
         }
-        return $user->is_admin;
+        return $user->role_id === 2;
     }
 }
